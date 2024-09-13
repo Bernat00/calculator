@@ -14,7 +14,7 @@ namespace calculator
         public int endIndex;
     }
 
-    internal class Calculator   //refactoralni kene!!!!!!!!!!!!
+    internal class Calculator   //refactoralni kene!!!!!!!!!!!
     {
         private const int maxRecursion = 4000;
         public readonly char[] ops;
