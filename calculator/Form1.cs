@@ -20,7 +20,7 @@ namespace calculator
     {
         Calculator calculator;
 
-        readonly char[] ops = { '+', '-', '*', '/', '^' };
+        readonly char[] ops = { '+', '-', '*', '/', '^', '!' };
         readonly char[] nums = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
         readonly char[] special = { ',', '(', ')' };
         string result = null;

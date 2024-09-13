@@ -49,6 +49,7 @@
             this.ButtonBracketRight = new System.Windows.Forms.Button();
             this.ButtonBracketLeft = new System.Windows.Forms.Button();
             this.ButtonPow = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Button0
@@ -209,11 +210,11 @@
             // 
             // ButtonAstrisc
             // 
-            this.ButtonAstrisc.Font = new System.Drawing.Font("Microsoft Sans Serif", 32F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.ButtonAstrisc.Location = new System.Drawing.Point(158, 68);
+            this.ButtonAstrisc.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.ButtonAstrisc.Location = new System.Drawing.Point(178, 155);
             this.ButtonAstrisc.Name = "ButtonAstrisc";
-            this.ButtonAstrisc.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.ButtonAstrisc.Size = new System.Drawing.Size(70, 70);
+            this.ButtonAstrisc.Padding = new System.Windows.Forms.Padding(0, 6, 0, 0);
+            this.ButtonAstrisc.Size = new System.Drawing.Size(49, 37);
             this.ButtonAstrisc.TabIndex = 12;
             this.ButtonAstrisc.Text = "*";
             this.ButtonAstrisc.UseVisualStyleBackColor = true;
@@ -223,10 +224,10 @@
             // 
             // ButtonSlash
             // 
-            this.ButtonSlash.Font = new System.Drawing.Font("Microsoft Sans Serif", 32F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.ButtonSlash.Location = new System.Drawing.Point(158, 144);
+            this.ButtonSlash.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.ButtonSlash.Location = new System.Drawing.Point(179, 66);
             this.ButtonSlash.Name = "ButtonSlash";
-            this.ButtonSlash.Size = new System.Drawing.Size(70, 70);
+            this.ButtonSlash.Size = new System.Drawing.Size(49, 37);
             this.ButtonSlash.TabIndex = 13;
             this.ButtonSlash.Text = "/";
             this.ButtonSlash.UseVisualStyleBackColor = true;
@@ -286,42 +287,65 @@
             // 
             // ButtonBracketRight
             // 
-            this.ButtonBracketRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 32F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.ButtonBracketRight.Location = new System.Drawing.Point(81, 144);
+            this.ButtonBracketRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.ButtonBracketRight.Location = new System.Drawing.Point(61, 66);
             this.ButtonBracketRight.Name = "ButtonBracketRight";
             this.ButtonBracketRight.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
-            this.ButtonBracketRight.Size = new System.Drawing.Size(70, 70);
+            this.ButtonBracketRight.Size = new System.Drawing.Size(49, 37);
             this.ButtonBracketRight.TabIndex = 18;
             this.ButtonBracketRight.Text = ")";
             this.ButtonBracketRight.UseVisualStyleBackColor = true;
+            this.ButtonBracketRight.Click += new System.EventHandler(this.ButtonPress);
+            this.ButtonBracketRight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllKeyPress);
+            this.ButtonBracketRight.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.AllPreviewKeyDown);
             // 
             // ButtonBracketLeft
             // 
-            this.ButtonBracketLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 32F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.ButtonBracketLeft.Location = new System.Drawing.Point(6, 144);
+            this.ButtonBracketLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.ButtonBracketLeft.Location = new System.Drawing.Point(6, 66);
             this.ButtonBracketLeft.Name = "ButtonBracketLeft";
             this.ButtonBracketLeft.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
-            this.ButtonBracketLeft.Size = new System.Drawing.Size(70, 70);
+            this.ButtonBracketLeft.Size = new System.Drawing.Size(49, 37);
             this.ButtonBracketLeft.TabIndex = 19;
             this.ButtonBracketLeft.Text = "(";
             this.ButtonBracketLeft.UseVisualStyleBackColor = true;
+            this.ButtonBracketLeft.Click += new System.EventHandler(this.ButtonPress);
+            this.ButtonBracketLeft.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllKeyPress);
+            this.ButtonBracketLeft.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.AllPreviewKeyDown);
             // 
             // ButtonPow
             // 
-            this.ButtonPow.Font = new System.Drawing.Font("Microsoft Sans Serif", 32F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.ButtonPow.Location = new System.Drawing.Point(81, 68);
+            this.ButtonPow.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.ButtonPow.Location = new System.Drawing.Point(6, 109);
             this.ButtonPow.Name = "ButtonPow";
-            this.ButtonPow.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.ButtonPow.Size = new System.Drawing.Size(70, 70);
+            this.ButtonPow.Padding = new System.Windows.Forms.Padding(0, 6, 0, 0);
+            this.ButtonPow.Size = new System.Drawing.Size(49, 37);
             this.ButtonPow.TabIndex = 20;
             this.ButtonPow.Text = "^";
             this.ButtonPow.UseVisualStyleBackColor = true;
+            this.ButtonPow.Click += new System.EventHandler(this.ButtonPress);
+            this.ButtonPow.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllKeyPress);
+            this.ButtonPow.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.AllPreviewKeyDown);
+            // 
+            // button10
+            // 
+            this.button10.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.button10.Location = new System.Drawing.Point(61, 109);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(49, 37);
+            this.button10.TabIndex = 21;
+            this.button10.Text = "!";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.ButtonPress);
+            this.button10.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllKeyPress);
+            this.button10.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.AllPreviewKeyDown);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(25F, 51F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(308, 522);
+            this.Controls.Add(this.button10);
             this.Controls.Add(this.ButtonPow);
             this.Controls.Add(this.ButtonBracketLeft);
             this.Controls.Add(this.ButtonBracketRight);
@@ -376,6 +400,7 @@
         private System.Windows.Forms.Button ButtonBracketRight;
         private System.Windows.Forms.Button ButtonBracketLeft;
         private System.Windows.Forms.Button ButtonPow;
+        private System.Windows.Forms.Button button10;
     }
 }
 

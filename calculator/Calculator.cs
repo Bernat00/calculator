@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Numerics;
 
 namespace calculator
 {
@@ -15,11 +16,23 @@ namespace calculator
 
     internal class Calculator
     {
+        private const int maxRecursion = 4000;
         public readonly char[] ops;
+        private int recurseionCount;
 
         public Calculator(char[] ops)
         {
             this.ops = ops;
+        }
+
+        private string Factorial(BigInteger number)
+        {
+            BigInteger result = number;
+
+            for (number--; number > 0; number--)
+                result *= number;
+
+            return result.ToString();
         }
 
         private bool DoWeNeedSimplification(string expression)
@@ -35,7 +48,7 @@ namespace calculator
             }
             
 
-            while ((expression.Contains('*') || expression.Contains('/') || expression.Contains('^'))
+            while ((expression.Contains('*') || expression.Contains('/') || expression.Contains('^'))       // ÁÁÁÁ black magic
                 && expression[
                     negativesIndex = expression.IndexOfAny(new char[] { '/', '*', '^' }) + 1
                     ] == '-')
@@ -115,7 +128,6 @@ namespace calculator
 
         private string SimpleOps(string expression)
         {
-            double result;
             bool isNegative = false;
 
 
@@ -126,22 +138,35 @@ namespace calculator
             }
 
 
+            if (expression.Contains('!'))
+            {
+                expression = expression.Remove(expression.Length-1);
+                BigInteger tmp = BigInteger.Parse(expression);
+
+                if (isNegative)
+                    throw new InvalidOperationException("Nincs Negatív faktoriális.");
+
+                return Factorial(tmp);
+            }
+
 
             int opIndex = expression.IndexOfAny(ops);
 
-            double a = double.Parse(expression.Substring(0, opIndex));
-            double b = double.Parse(expression.Substring(opIndex + 1));
+
+            BigInteger a = BigInteger.Parse(expression.Substring(0, opIndex));
+            BigInteger b = BigInteger.Parse(expression.Substring(opIndex + 1));
 
             if (isNegative)
                 a = -1 * a;
 
+
+            BigInteger result;
             switch (expression[opIndex])
             {
                 case '+': result = a + b; break;
                 case '-': result = a - b; break;
                 case '*': result = a * b; break;
-                case '^': result = Math.Pow(a, b); break;
-
+                case '^': result = BigInteger.Pow(a, (int)b); break;
                 case '/':
                     if (b == 0)
                         throw new InvalidOperationException("Nullával osztás!!");
@@ -196,6 +221,9 @@ namespace calculator
 
         private string CalculateV2(string expression)
         {
+            if (maxRecursion < (recurseionCount++))
+                throw new Exception("Too long or looping");
+
             if (expression.Contains('('))
             {
                 string oldExp = Brackets(expression);
