@@ -41,7 +41,7 @@ namespace calculator
             if (expression.Contains('!'))
             {
                 expression = expression.Remove(expression.Length-1);
-                BigInteger tmp = BigInteger.Parse(expression);
+                double tmp = double.Parse(expression);
 
                 if (isNegative)
                     throw new InvalidOperationException("Nincs Negatív faktoriális.");
@@ -53,20 +53,20 @@ namespace calculator
             int opIndex = expression.IndexOfAny(ops);
 
 
-            BigInteger a = BigInteger.Parse(expression.Substring(0, opIndex));
-            BigInteger b = BigInteger.Parse(expression.Substring(opIndex + 1));
+            double a = double.Parse(expression.Substring(0, opIndex));
+            double b = double.Parse(expression.Substring(opIndex + 1));
 
             if (isNegative)
                 a = -1 * a;
 
 
-            BigInteger result;
+            double result;
             switch (expression[opIndex])
             {
                 case '+': result = a + b; break;
                 case '-': result = a - b; break;
                 case '*': result = a * b; break;
-                case '^': result = BigInteger.Pow(a, (int)b); break;
+                case '^': result = Math.Pow(a, b); break;
                 case '/':
                     if (b == 0)
                         throw new InvalidOperationException("Nullával osztás!!");

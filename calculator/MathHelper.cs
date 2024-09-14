@@ -9,9 +9,9 @@ namespace calculator
 {
     static class MathHelper
     {
-        public static string Factorial(BigInteger number)
+        public static string Factorial(double number)
         {
-            BigInteger result = number;
+            double result = number;
 
             for (number--; number > 0; number--)
                 result *= number;
