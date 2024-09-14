@@ -44,6 +44,8 @@ namespace calculator
             {
                 Button b = (Button)sender;
 
+                if (b.Text == "")
+
                 Screen.Text += b.Text;
             }
         }

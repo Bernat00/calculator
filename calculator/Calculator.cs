@@ -87,9 +87,9 @@ namespace calculator
             if (maxRecursion < (recurseionCount++))
                 throw new Exception("Too long or looping");
 
-            if (expression.Contains("sqrt"))
+            if (expression.Contains("x√y"))
             {
-                throw new NotImplementedException("még nincs kész ez a része");
+                
             }
 
             else if (expression.Contains('('))

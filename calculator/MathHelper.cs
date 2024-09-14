@@ -18,5 +18,11 @@ namespace calculator
 
             return result.ToString();
         }
+
+
+        public static double NthRoot(double A, double N)
+        {
+            return Math.Pow(A, 1.0 / N);
+        }
     }
 }

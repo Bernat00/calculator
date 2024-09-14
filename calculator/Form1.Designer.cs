@@ -50,6 +50,7 @@
             this.ButtonBracketLeft = new System.Windows.Forms.Button();
             this.ButtonPow = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Button0
@@ -340,11 +341,25 @@
             this.button10.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllKeyPress);
             this.button10.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.AllPreviewKeyDown);
             // 
+            // button11
+            // 
+            this.button11.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.button11.Location = new System.Drawing.Point(6, 152);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(70, 40);
+            this.button11.TabIndex = 22;
+            this.button11.Text = "x√y";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.ButtonPress);
+            this.button11.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllKeyPress);
+            this.button11.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.AllPreviewKeyDown);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(25F, 51F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(308, 522);
+            this.Controls.Add(this.button11);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.ButtonPow);
             this.Controls.Add(this.ButtonBracketLeft);
@@ -372,6 +387,8 @@
             this.Name = "Form1";
             this.Text = "Calculator";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllKeyPress);
+            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.AllPreviewKeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -401,6 +418,7 @@
         private System.Windows.Forms.Button ButtonBracketLeft;
         private System.Windows.Forms.Button ButtonPow;
         private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button button11;
     }
 }
 
