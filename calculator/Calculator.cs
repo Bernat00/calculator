@@ -87,7 +87,12 @@ namespace calculator
             if (maxRecursion < (recurseionCount++))
                 throw new Exception("Too long or looping");
 
-            if (expression.Contains('('))
+            if (expression.Contains("sqrt"))
+            {
+                throw new NotImplementedException("még nincs kész ez a része");
+            }
+
+            else if (expression.Contains('('))
             {
                 string oldExp = CalculatorHelper.Brackets(expression);
 
