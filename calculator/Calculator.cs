@@ -14,7 +14,7 @@ namespace calculator
         public int endIndex;
     }
 
-    internal class Calculator   //refactoralni kene!!!!!!!!!!!
+    internal class Calculator
     {
         private const int maxRecursion = 4000;
         public readonly char[] ops;
@@ -24,106 +24,6 @@ namespace calculator
         {
             this.ops = ops;
         }
-
-        private string Factorial(BigInteger number)
-        {
-            BigInteger result = number;
-
-            for (number--; number > 0; number--)
-                result *= number;
-
-            return result.ToString();
-        }
-
-        private bool DoWeNeedSimplification(string expression)
-        {
-            int negativesIndex;
-
-
-            if (expression[0] == '-')
-            {
-                expression = expression.Substring(1);
-
-                return expression.IndexOfAny(ops) != expression.LastIndexOfAny(ops);
-            }
-            
-
-            while ((expression.Contains('*') || expression.Contains('/') || expression.Contains('^'))       // ÁÁÁÁ black magic
-                && expression[
-                    negativesIndex = expression.IndexOfAny(new char[] { '/', '*', '^' }) + 1
-                    ] == '-')
-                {
-                    expression = expression.Remove(negativesIndex,1);
-                }
-
-
-            return expression.IndexOfAny(ops) != expression.LastIndexOfAny(ops);
-        }
-
-        private string Brackets(string expression)
-        {
-            int startindex = expression.IndexOf('(');
-            int endIndex = 0;
-
-            int numOfStartBrackets = 0;
-            int numOfEndBrackets = 0;
-
-
-            while (numOfStartBrackets > numOfEndBrackets || numOfStartBrackets == 0)
-            {
-                if(expression.Length-1 < endIndex)
-                    throw new NotSupportedException("Nem Jók a zárójelek!");
-
-                if (expression[endIndex] == '(')
-                    numOfStartBrackets++;
-
-                else if (expression[endIndex] == ')')
-                    numOfEndBrackets++;
-
-                endIndex++;
-            }
-
-
-            return expression.Substring(startindex, endIndex-startindex);         //nem a legszebb
-        }
-
-        private string DivMult(string expression)
-        {
-            char[] tmp = new char[] { '/', '*' };
-            int opIndex = expression.IndexOfAny(tmp);
-
-            StartEndIndex indexes = StartEndIndexOf(expression, opIndex);
-
-            string result = expression.Substring(indexes.startIndex,
-                indexes.endIndex - indexes.startIndex + 1);
-
-            return result;
-        }
-
-        private string SubAdd(string expression)
-        {
-            int opIndex = expression.LastIndexOfAny(ops);
-
-            StartEndIndex indexes = StartEndIndexOf(expression, opIndex);
-
-            string result = expression.Substring(indexes.startIndex,
-                indexes.endIndex - indexes.startIndex + 1);
-
-            return result;
-        }
-
-        private string Pow(string expression)
-        {
-            int opIndex = expression.IndexOf('^');
-
-            StartEndIndex indexes = StartEndIndexOf(expression, opIndex);
-
-            string result = expression.Substring(indexes.startIndex,
-                indexes.endIndex - indexes.startIndex + 1);
-
-            return result;
-        }
-
 
 
         private string SimpleOps(string expression)
@@ -146,7 +46,7 @@ namespace calculator
                 if (isNegative)
                     throw new InvalidOperationException("Nincs Negatív faktoriális.");
 
-                return Factorial(tmp);
+                return MathHelper.Factorial(tmp);
             }
 
 
@@ -180,44 +80,7 @@ namespace calculator
             return result.ToString();
         }
 
-        private bool IsComplete(string expression)
-        {
-            if ( !ops.Any(x => expression.Contains(x) )  )
-                return true;
-
-            if (expression[0] != '-')
-                return false;
-
-            else
-            {
-                expression = expression.Substring(1);
-
-                return !ops.Any(x => expression.Contains(x) );
-            }
-
-        }
-
-
-        private StartEndIndex StartEndIndexOf(string expression, int indexOfOperation)
-        {
-            int start = indexOfOperation - 1;
-            int end = indexOfOperation + 2;
-
-
-            for (; start >= 0 && !ops.Contains(expression[start]); start--) ;
-
-            start++;    // ez nem szép
-
-            for (; end <= expression.Length - 1 && !ops.Contains(expression[end]); end++) ;
-
-            end--;
-
-            StartEndIndex tmp;
-            tmp.startIndex = start;
-            tmp.endIndex = end;
-            return tmp;
-        }
-
+        
 
         private string CalculateV2(string expression)
         {
@@ -226,7 +89,7 @@ namespace calculator
 
             if (expression.Contains('('))
             {
-                string oldExp = Brackets(expression);
+                string oldExp = CalculatorHelper.Brackets(expression);
 
                 expression = expression.Replace(
                             oldExp,
@@ -234,32 +97,10 @@ namespace calculator
                     );
             }
 
-            else if (DoWeNeedSimplification(expression) )
+            else if (CalculatorHelper.DoWeNeedSimplification(expression) )
             {
-                string oldExp;
-                string toCalc;
 
-                if (expression.Contains('^'))
-                    oldExp = toCalc = Pow(expression);
-
-                else if (expression.Contains('*') || expression.Contains('/'))
-                    toCalc = oldExp = DivMult(expression);
-
-                else if (expression.Contains("+-"))
-                {
-                    oldExp = expression;
-                    toCalc = expression.Replace("+-", "-");
-                }
-                else if (expression.Contains("--"))
-                {
-                    oldExp = expression;
-                    toCalc = expression.Replace("--", "+");
-                }
-
-
-                else
-                    toCalc = oldExp = SubAdd(expression);
-
+                CalculatorHelper.Simplify(expression, out string oldExp, out string toCalc);
 
                 expression = expression.Replace(oldExp, CalculateV2(toCalc));
             }
@@ -269,7 +110,7 @@ namespace calculator
 
 
 
-            if (!IsComplete(expression))
+            if (!CalculatorHelper.IsComplete(expression))
                 expression = CalculateV2(expression);
 
 
