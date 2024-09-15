@@ -82,10 +82,15 @@ namespace calculator
 
         
 
-        private string CalculateV2(string expression)
+        private string CalculateV2(string expression) //WTF??
         {
-            if (maxRecursion < (recurseionCount++))
+            if(CalculatorHelper.IsComplete(expression))
+                return expression;
+
+            if (maxRecursion < recurseionCount)
                 throw new Exception("Too long or looping");
+
+            recurseionCount++;
 
             if (expression.Contains("√"))         //Shit design
             {
@@ -121,12 +126,7 @@ namespace calculator
 
 
 
-            if (!CalculatorHelper.IsComplete(expression))
-                expression = CalculateV2(expression);
-
-
-            return expression;
-
+            CalculateV2(expression);
         }
 
         public string Calculate(string expession)
