@@ -9,7 +9,7 @@ namespace calculator
     static class CalculatorHelper
     {
 
-        public static readonly char[] ops = { '+', '-', '*', '/', '^', '!' };
+        public static readonly char[] ops = { '+', '-', '*', '/', '^', '!', '√' };
         public static readonly char[] nums = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
         public static readonly char[] special = { ',', '(', ')' };
 
@@ -17,7 +17,7 @@ namespace calculator
         public static bool DoWeNeedSimplification(string expression)
         {
             int negativesIndex;
-
+            // todo put Root here
 
             if (expression[0] == '-')
             {
@@ -122,6 +122,37 @@ namespace calculator
                 indexes.endIndex - indexes.startIndex + 1);
 
             return result;
+        }
+
+        /// <summary>
+        /// Returns the string that has to be replaced with the calculate value
+        /// and gives back N.
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <param name="N"></param>
+        /// <returns></returns>
+        public static string NthRootOfXHelper(string expression, out string toCalc, out double N)
+        {
+            int rootIndex = expression.IndexOf('√');
+            int startIndex = rootIndex;
+
+            string NString = "";
+
+
+            do
+            {
+                startIndex--;
+                NString = NString.Insert(0, expression[startIndex].ToString());
+            }
+            while (startIndex > 0 &&
+                !ops.Contains(expression[startIndex - 1]) );
+
+
+            string oldExp = toCalc = Brackets(expression.Substring(startIndex));
+
+            N = double.Parse(NString);
+
+            return oldExp.Insert(0, NString + "√" );
         }
 
 

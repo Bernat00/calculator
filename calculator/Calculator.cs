@@ -87,9 +87,15 @@ namespace calculator
             if (maxRecursion < (recurseionCount++))
                 throw new Exception("Too long or looping");
 
-            if (expression.Contains("x√y"))
+            if (expression.Contains("√"))         //Shit design
             {
+                string oldExp = CalculatorHelper.NthRootOfXHelper(expression, out string toCalc, out double N);
+
+                string calculated = MathHelper.NthRoot( 
+                    double.Parse(CalculateV2(toCalc)) , N).ToString();
+
                 
+                expression.Replace(oldExp, calculated);
             }
 
             else if (expression.Contains('('))
@@ -102,7 +108,7 @@ namespace calculator
                     );
             }
 
-            else if (CalculatorHelper.DoWeNeedSimplification(expression) )
+            else if (CalculatorHelper.DoWeNeedSimplification(expression) ) // move root thing here
             {
 
                 CalculatorHelper.Simplify(expression, out string oldExp, out string toCalc);

@@ -25,6 +25,8 @@ namespace calculator
         readonly char[] special = CalculatorHelper.special;
         string result = null;
 
+        private bool nrootPressed = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -44,7 +46,20 @@ namespace calculator
             {
                 Button b = (Button)sender;
 
-                if (b.Text == "")
+                if (b.Text == "x√y")
+                {
+                    if (nrootPressed)
+                    {
+                        Screen.Text += ")";
+                        nrootPressed = false;
+                    }
+                    else
+                    {
+                        Screen.Text += "√(";
+                        nrootPressed = true;
+                    }
+                    return;
+                }
 
                 Screen.Text += b.Text;
             }
@@ -65,6 +80,9 @@ namespace calculator
         {
                 if (ops.Contains(e.KeyChar) && result != null)
                 {
+                    if(e.KeyChar == ')')
+                        nrootPressed = false;
+
                     e.Handled = true;
 
                     Screen.Clear();
