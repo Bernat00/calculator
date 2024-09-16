@@ -12,12 +12,16 @@ namespace calculator
         public static readonly char[] ops = { '+', '-', '*', '/', '^', '!', '√' };
         public static readonly char[] nums = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
         public static readonly char[] special = { ',', '(', ')' };
+        public static readonly char[] brackets = {'(', ')' };
+
 
 
         public static bool DoWeNeedSimplification(string expression)
         {
             int negativesIndex;
-            // todo put Root here
+            
+            if(expression.Contains('√'))
+                return true;
 
             if (expression[0] == '-')
             {
@@ -145,10 +149,12 @@ namespace calculator
                 NString = NString.Insert(0, expression[startIndex].ToString());
             }
             while (startIndex > 0 &&
-                !ops.Contains(expression[startIndex - 1]) );
+                !ops.Contains(expression[startIndex - 1]) && !brackets.Contains(expression[startIndex - 1]));
 
 
             string oldExp = toCalc = Brackets(expression.Substring(startIndex));
+
+            toCalc = toCalc.Substring(1, toCalc.Length - 2);
 
             N = double.Parse(NString);
 

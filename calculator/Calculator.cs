@@ -92,18 +92,7 @@ namespace calculator
 
             recurseionCount++;
 
-            if (expression.Contains("√"))         //Shit design
-            {
-                string oldExp = CalculatorHelper.NthRootOfXHelper(expression, out string toCalc, out double N);
-
-                string calculated = MathHelper.NthRoot( 
-                    double.Parse(CalculateV2(toCalc)) , N).ToString();
-
-                
-                expression.Replace(oldExp, calculated);
-            }
-
-            else if (expression.Contains('('))
+            if (expression.Contains('(') && !expression.Contains('√'))
             {
                 string oldExp = CalculatorHelper.Brackets(expression);
 
@@ -113,12 +102,24 @@ namespace calculator
                     );
             }
 
-            else if (CalculatorHelper.DoWeNeedSimplification(expression) ) // move root thing here 
+            else if (CalculatorHelper.DoWeNeedSimplification(expression) )
             {
+                string oldExp;
+                string toCalc;
 
-                CalculatorHelper.Simplify(expression, out string oldExp, out string toCalc);
+                if (expression.Contains('√'))
+                {
 
-                expression = expression.Replace(oldExp, CalculateV2(toCalc)); // bruh ezt is at kell írni
+                    oldExp = CalculatorHelper.NthRootOfXHelper(expression, out toCalc, out double N);
+
+                    toCalc = MathHelper.NthRoot(         // not grate design (doesn't need calculation again)
+                        double.Parse(CalculateV2(toCalc)),
+                        N).ToString();
+                }
+                else
+                    CalculatorHelper.Simplify(expression, out oldExp, out toCalc);
+
+                expression = expression.Replace(oldExp, CalculateV2(toCalc));
             }
 
             else

@@ -22,7 +22,18 @@ namespace calculator
 
         public static double NthRoot(double A, double N)
         {
-            return Math.Pow(A, 1.0 / N);
+            bool isNegative = A < 0;
+
+            if (N % 2 != 0)
+                A = Math.Abs(A);
+
+            double result = Math.Pow(A, 1.0 / N);
+
+            if (double.IsNaN(result))
+                throw new NotSupportedException("Gyökhiba (valószínüleg páros gyök alatt negatív szám)");
+
+
+            return isNegative? result*=-1:result;
         }
     }
 }
