@@ -24,13 +24,14 @@ namespace calculator
         {
             bool isNegative = A < 0;
 
-            if (N % 2 != 0)
+            if (N % 2 != 0 && N % 1 == 0)         //nem működik nem egész kitevővel :(
                 A = Math.Abs(A);
 
             double result = Math.Pow(A, 1.0 / N);
 
             if (double.IsNaN(result))
-                throw new NotSupportedException("Gyökhiba (valószínüleg páros gyök alatt negatív szám)");
+                throw new NotSupportedException("Gyökhiba (valószínüleg páros gyök alatt negatív" +
+                    " szám (vagy mert nem szupportáljuk a tört kitevőt) )");
 
 
             return isNegative? result*=-1:result;
