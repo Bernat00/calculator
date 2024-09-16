@@ -82,7 +82,7 @@ namespace calculator
 
         
 
-        private string CalculateV2(string expression) //WTF??
+        private string CalculateV2(string expression)
         {
             if(CalculatorHelper.IsComplete(expression))
                 return expression;
@@ -113,12 +113,12 @@ namespace calculator
                     );
             }
 
-            else if (CalculatorHelper.DoWeNeedSimplification(expression) ) // move root thing here
+            else if (CalculatorHelper.DoWeNeedSimplification(expression) ) // move root thing here 
             {
 
                 CalculatorHelper.Simplify(expression, out string oldExp, out string toCalc);
 
-                expression = expression.Replace(oldExp, CalculateV2(toCalc));
+                expression = expression.Replace(oldExp, CalculateV2(toCalc)); // bruh ezt is at kell írni
             }
 
             else
@@ -126,7 +126,7 @@ namespace calculator
 
 
 
-            CalculateV2(expression);
+            return CalculateV2(expression);
         }
 
         public string Calculate(string expession)
