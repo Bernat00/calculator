@@ -41,7 +41,7 @@ namespace calculator
         public static void Simplify(string expression, out string oldExp, out string toCalc)
         {
 
-            if(expression.Contains('√'))
+            if(expression.Contains('√'))                                                        // git is being weird
                 oldExp = toCalc = expression = GetSingleOperation(expression, new char[] { '√' });
 
             else if (expression.Contains('^'))
