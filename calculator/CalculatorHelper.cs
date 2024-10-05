@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace calculator
 {
@@ -19,9 +16,6 @@ namespace calculator
         public static bool DoWeNeedSimplification(string expression)
         {
             int negativesIndex;
-            
-            if(expression.Contains('√'))
-                return true;
 
             if (expression[0] == '-')
             {
@@ -46,11 +40,15 @@ namespace calculator
 
         public static void Simplify(string expression, out string oldExp, out string toCalc)
         {
-            if (expression.Contains('^'))
-                oldExp = toCalc = Pow(expression);
+
+            if(expression.Contains('√'))
+                oldExp = toCalc = expression = GetSingleOperation(expression, new char[] { '√' });
+
+            else if (expression.Contains('^'))
+                oldExp = toCalc = GetSingleOperation(expression, new char[] { '^' });
 
             else if (expression.Contains('*') || expression.Contains('/'))
-                toCalc = oldExp = DivMult(expression);
+                toCalc = oldExp = GetSingleOperation(expression, new char[] { '*', '/' });
 
             else if (expression.Contains("+-"))
             {
@@ -65,7 +63,7 @@ namespace calculator
 
 
             else
-                toCalc = oldExp = SubAdd(expression);
+                toCalc = oldExp = GetSingleOperation(expression, new char[] { '+', '-' });
         }
 
 
@@ -115,10 +113,9 @@ namespace calculator
         }
 
 
-        #region operations
-        public static string Pow(string expression)
+        public static string GetSingleOperation(string expression, char[] OpTypes)
         {
-            int opIndex = expression.IndexOf('^');
+            int opIndex = expression.IndexOfAny(OpTypes);
 
             StartEndIndex indexes = StartEndIndexOf(expression, opIndex);
 
@@ -127,67 +124,6 @@ namespace calculator
 
             return result;
         }
-
-        /// <summary>
-        /// Returns the string that has to be replaced with the calculate value
-        /// and gives back N.
-        /// </summary>
-        /// <param name="expression"></param>
-        /// <param name="N"></param>
-        /// <returns></returns>
-        public static string NthRootOfXHelper(string expression, out string toCalc, out double N)
-        {
-            int rootIndex = expression.IndexOf('√');
-            int startIndex = rootIndex;
-
-            string NString = "";
-
-
-            do
-            {
-                startIndex--;
-                NString = NString.Insert(0, expression[startIndex].ToString());
-            }
-            while (startIndex > 0 &&
-                !ops.Contains(expression[startIndex - 1]) && !brackets.Contains(expression[startIndex - 1]));
-
-
-            string oldExp = toCalc = Brackets(expression.Substring(startIndex));
-
-            toCalc = toCalc.Substring(1, toCalc.Length - 2);
-
-            N = double.Parse(NString);
-
-            return oldExp.Insert(0, NString + "√" );
-        }
-
-
-        public static string DivMult(string expression)
-        {
-            char[] tmp = new char[] { '/', '*' };
-            int opIndex = expression.IndexOfAny(tmp);
-
-            StartEndIndex indexes = StartEndIndexOf(expression, opIndex);
-
-            string result = expression.Substring(indexes.startIndex,
-                indexes.endIndex - indexes.startIndex + 1);
-
-            return result;
-        }
-
-        public static string SubAdd(string expression)
-        {
-            int opIndex = expression.LastIndexOfAny(ops);
-
-            StartEndIndex indexes = StartEndIndexOf(expression, opIndex);
-
-            string result = expression.Substring(indexes.startIndex,
-                indexes.endIndex - indexes.startIndex + 1);
-
-            return result;
-        }
-
-        #endregion
 
 
         private static StartEndIndex StartEndIndexOf(string expression, int indexOfOperation)

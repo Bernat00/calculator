@@ -63,6 +63,8 @@ namespace calculator
             double result;
             switch (expression[opIndex])
             {
+
+                case '√': result = MathHelper.NthRoot(b, a); break;
                 case '+': result = a + b; break;
                 case '-': result = a - b; break;
                 case '*': result = a * b; break;
@@ -92,7 +94,7 @@ namespace calculator
 
             recurseionCount++;
 
-            if (expression.Contains('(') && !expression.Contains('√'))
+            if (expression.Contains('(') )
             {
                 string oldExp = CalculatorHelper.Brackets(expression);
 
@@ -107,17 +109,7 @@ namespace calculator
                 string oldExp;
                 string toCalc;
 
-                if (expression.Contains('√'))
-                {
-
-                    oldExp = CalculatorHelper.NthRootOfXHelper(expression, out toCalc, out double N);
-
-                    toCalc = MathHelper.NthRoot(         // not grate design (doesn't need calculation again)
-                        double.Parse(CalculateV2(toCalc)),
-                        N).ToString();
-                }
-                else
-                    CalculatorHelper.Simplify(expression, out oldExp, out toCalc);
+                CalculatorHelper.Simplify(expression, out oldExp, out toCalc);
 
                 expression = expression.Replace(oldExp, CalculateV2(toCalc));
             }
